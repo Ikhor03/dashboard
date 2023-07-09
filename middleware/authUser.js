@@ -1,4 +1,5 @@
 import Users from "../models/userModel.js";
+import { errorMessage } from "../utils/utils.js";
 
 export const verifyUser = async (req, res, next) => {
     if (!req.session.userId) return res.status(401).json({ message: "Please login to your account" });
@@ -19,7 +20,7 @@ export const adminOnly = async (req, res, next) => {
     })
     if (!user) return res.status(400).json({ message: "user not found" });
 
-    if (user.role !== 'admin') return res.status(400).json({message : "forbidden Access"});
+    if (user.role !== 'admin') return errorMessage(res, "forbidden Access", 403);
 
     next();
 }
