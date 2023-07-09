@@ -62,8 +62,7 @@ export const updateUser = async (req, res) => {
     if (password !== cofirmPassword) {
         return res.json({ message: "Password not matching" });
     }
-console.log(hashPassword)
-
+    
     try {
         await Users.update({
             name: name,
