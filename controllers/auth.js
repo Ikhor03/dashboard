@@ -1,4 +1,4 @@
-import Users from "../models/userModel";
+import Users from "../models/userModel.js";
 import argon2 from "argon2";
 
 export const login = async (req, res) => {
@@ -12,7 +12,7 @@ export const login = async (req, res) => {
 
     req.session.userId = user.uuid;
     const {uuid, name, email, role} = user;
-    res.status(200).join({uuid, name, email, role});
+    res.status(200).json({uuid, name, email, role});
 }
 
 export const logout = async (req, res) => {
@@ -31,5 +31,5 @@ export const me = async (req, res) => {
     });
     if (!user) return res.status(404).json({ message: "User not found" });
     res.status(200).json(user);
-    
+
 }

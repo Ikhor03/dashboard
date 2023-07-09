@@ -5,6 +5,7 @@ import dotenv from "dotenv";
 // import db from "./config/database.js"
 import userRoute from './routes/userRoute.js';
 import productRoute from './routes/productRoute.js';
+import authRoute from "./routes/authRoute.js"
 dotenv.config();
 
 
@@ -30,6 +31,7 @@ app.use(session({
 }))
 app.use('/api',userRoute);
 app.use('/api',productRoute);
+app.use('/auth', authRoute);
 
 app.get('/', (req, res) => {
     res.json({
