@@ -28,7 +28,6 @@ export const getUserById = async (req, res) => {
 
 export const createUser = async (req, res) => {
     const { name, email, password, cofirmPassword, role } = req.body;
-    console.log(password, ' ', cofirmPassword)
     if (password !== cofirmPassword){
         return res.json({message : "Password not matching"});
     }

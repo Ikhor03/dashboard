@@ -6,21 +6,25 @@ export const getProduct = async (req, res) => {
     try {
         let data;
         if (req.role === "admin") {
-            data = await Users.findAll({
+            data = await Products.findAll({
+                attributes : ['name', 'price', 'uuid'],
                 include : [{
                     model : Users,
-                    attributes : ['name', 'price']
+                    attributes: ['name', 'email']
                 }]
             })
         } else {
-            data = await Users.findAll({
+            data = await Products.findAll({
+                attributes: ['uuid', 'name', 'price'],
                 where : {userId : req.userId},
                 include: [{
                     model: Users,
-                    attributes: ['name', 'price']
+                    attributes : ['name', 'email']
                 }]
             })
         }
+
+        res.status(200).json(data);
     } catch (error) {
         errorMessage(res, error, 500);
     }
@@ -35,11 +39,16 @@ export const getProductById = async (req, res) => {
 }
 
 export const createProduct = async (req, res) => {
-    
+    const {name, price} = req.body;
     try {
-
+        await Products.create({
+            name: name,
+            price: price,
+            userId: req.userId
+        });
+        res.status(201).json({message : "Items created"});
     } catch (error) {
-        errorMessage(res, error);
+        errorMessage(res, error, 500);
     }
 }
 
