@@ -8,8 +8,8 @@ export const verifyUser = async (req, res, next) => {
     })
     if (!user) return res.status(400).json({message : "user not found"});
 
-    // req.userId = user.id;
-    // req.role = user.role;
+    req.userId = user.id;
+    req.role = user.role;
     next();
 }
 

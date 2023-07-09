@@ -1,5 +1,6 @@
 import Users from "../models/userModel.js";
 import argon2, { hash } from "argon2"
+import { errorMessage } from "../utils/utils.js";
 
 
 export const getUser = async (req, res) => {
@@ -9,7 +10,7 @@ export const getUser = async (req, res) => {
         });
         res.status(200).json(data);
     } catch (error) {
-        res.status(500).json({ message: error.message });
+        errorMessage(res, error, 500);
     }
 }
 
@@ -21,7 +22,7 @@ export const getUserById = async (req, res) => {
         });
         res.status(200).json(data);
     } catch (error) {
-        res.status(500).json({ message: error.message });
+        errorMessage(res, error, 500);
     }
 }
 
@@ -41,7 +42,7 @@ export const createUser = async (req, res) => {
         });
         res.status(201).json({message : "Register Succesfully"});
     } catch (error) {
-        res.status(400).json({ message: error.message });
+        errorMessage(res, error, 400);
     }
 }
 
@@ -77,7 +78,7 @@ console.log(hashPassword)
         });
         res.status(200).json({ msg: "User Updated" });
     } catch (error) {
-        res.status(400).json({ msg: error.message });
+        errorMessage(res, error, 400);
     }
 
 }
@@ -95,6 +96,6 @@ export const deleteUser = async (req, res) => {
         });
         res.status(200).json({ message: "User deleted" });
     } catch (error) {
-        res.status(400).json({ message: error.message });
+        errorMessage(res, error, 400);
     }
 }

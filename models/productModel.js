@@ -28,7 +28,7 @@ const Products = db.define('Product', {
             notEmpty:true
         }
     },
-    user_id:{
+    userId:{
         type : DataTypes.INTEGER,
         allowNull:false,
         validate:{

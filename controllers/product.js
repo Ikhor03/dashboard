@@ -1,32 +1,45 @@
 import Products from "../models/productModel.js";
+import Users from "../models/userModel.js";
+import {errorMessage} from "../utils/utils.js";
 
 export const getProduct = async (req, res) => {
     try {
-        const data = await Products.findAll();
-        res.status(200).json(data);
+        let data;
+        if (req.role === "admin") {
+            data = await Users.findAll({
+                include : [{
+                    model : Users,
+                    attributes : ['name', 'price']
+                }]
+            })
+        } else {
+            data = await Users.findAll({
+                where : {userId : req.userId},
+                include: [{
+                    model: Users,
+                    attributes: ['name', 'price']
+                }]
+            })
+        }
     } catch (error) {
-        res.status(500).json({message:error.message});
+        errorMessage(res, error, 500);
     }
 }
 
 export const getProductById = async (req, res) => {
     try {
-        const data = await Products.findOne({
-            where : {uuid : req.params.id}
-        });
-        res.status(200).json(data);
+        
     } catch (error) {
-        res.status(500).json({ message: error.message });
+        errorMessage(res, error, 500);
     }
 }
 
 export const createProduct = async (req, res) => {
     
     try {
-        const data = await Products.create();
-        res.status(200).json(data);
+
     } catch (error) {
-        res.status(500).json({ message: error.message });
+        errorMessage(res, error);
     }
 }
 
