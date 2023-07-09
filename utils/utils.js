@@ -1,7 +1,7 @@
-export const errorMessage = (res, error, status) => {
+export const errorMessage = (res, message, status) => {
     return res.status(status).json({ 
         error : 1,
         status,
-        message: error.message
+        message
      });
 }

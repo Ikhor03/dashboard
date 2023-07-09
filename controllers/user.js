@@ -10,7 +10,7 @@ export const getUser = async (req, res) => {
         });
         res.status(200).json(data);
     } catch (error) {
-        errorMessage(res, error, 500);
+        errorMessage(res, error.message, 500);
     }
 }
 
@@ -22,7 +22,7 @@ export const getUserById = async (req, res) => {
         });
         res.status(200).json(data);
     } catch (error) {
-        errorMessage(res, error, 500);
+        errorMessage(res, error.message, 500);
     }
 }
 
@@ -41,7 +41,7 @@ export const createUser = async (req, res) => {
         });
         res.status(201).json({message : "Register Succesfully"});
     } catch (error) {
-        errorMessage(res, error, 400);
+        errorMessage(res, error.message, 400);
     }
 }
 
@@ -77,7 +77,7 @@ console.log(hashPassword)
         });
         res.status(200).json({ msg: "User Updated" });
     } catch (error) {
-        errorMessage(res, error, 400);
+        errorMessage(res, error.message, 400);
     }
 
 }
@@ -95,6 +95,6 @@ export const deleteUser = async (req, res) => {
         });
         res.status(200).json({ message: "User deleted" });
     } catch (error) {
-        errorMessage(res, error, 400);
+        errorMessage(res, error.message, 400);
     }
 }
