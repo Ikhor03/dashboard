@@ -65,7 +65,6 @@ export const updateUser = async (req, res) => {
     }
     
     try {
-        console.log(hashPassword)
         await Users.update({
             name: name,
             email: email,
