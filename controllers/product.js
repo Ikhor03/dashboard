@@ -80,7 +80,7 @@ export const createProduct = async (req, res) => {
         });
         res.status(201).json({ message: "Items created" });
     } catch (error) {
-        errorMessage(res, error.message, 500);
+        errorMessage(res, error.message, 400);
     }
 }
 
@@ -109,7 +109,7 @@ export const updateProduct = async (req, res) => {
                 }
             })
         }
-        res.status(200).json("Product Updated")
+        res.status(200).json({message : "Product Updated"})
     } catch (error) {
         errorMessage(res, error.message, 500)
     }

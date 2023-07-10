@@ -27,9 +27,10 @@ export const getUserById = async (req, res) => {
 }
 
 export const createUser = async (req, res) => {
-    const { name, email, password, cofirmPassword, role } = req.body;
-    if (password !== cofirmPassword){
-        return res.json({message : "Password not matching"});
+    const { name, email, password, confirmPassword, role } = req.body;
+    
+    if (password !== confirmPassword){
+        return errorMessage(res, "Password not matching", 400);
     }
     const hashPassword = await argon2.hash(password);
     try {
@@ -51,19 +52,20 @@ export const updateUser = async (req, res) => {
     });
 
     if (!user) return res.status(404).json({message: "User not found"});
-    const { name, email, password, cofirmPassword, role } = req.body;
+    const { name, email, password, confirmPassword, role } = req.body;
 
     let hashPassword;
     if (password === "" || password === null){
         hashPassword = user.password;
     } else {
-        hashPassword = argon2.hash(password);
+        hashPassword = await argon2.hash(password);
     }
-    if (password !== cofirmPassword) {
-        return res.json({ message: "Password not matching" });
+    if (password !== confirmPassword) {
+        return errorMessage(res, "Password not matching", 203);
     }
     
     try {
+        console.log(hashPassword)
         await Users.update({
             name: name,
             email: email,
@@ -74,7 +76,7 @@ export const updateUser = async (req, res) => {
                 id: user.id
             }
         });
-        res.status(200).json({ msg: "User Updated" });
+        res.status(200).json({ message: "User Updated" });
     } catch (error) {
         errorMessage(res, error.message, 400);
     }
