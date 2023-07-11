@@ -1,4 +1,4 @@
-<h3 align="center">Dapur Solo</h3>
+<h3 align="center">Dashboard</h3>
 
 <!-- ABOUT THE PROJECT -->
 
